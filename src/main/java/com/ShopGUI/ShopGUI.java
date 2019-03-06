@@ -37,17 +37,10 @@ public class ShopGUI extends JavaPlugin {
 	}
 	
 	private void registerShopConfig() {
-		List<Map<?, ?>> maplist = shopConfig.getMapList("shop.shops");
-		
-		if (!shopConfig.isSet("shop.shops")) {
-			maplist = new ArrayList<Map<?, ?>>();
-			
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("tester", "test");
-			maplist.add(map);
-			
-			shopConfig.set("shop.shops", maplist);
-		}
+		List<String> categories = new ArrayList<String>();
+		categories.add("Basic");
+		categories.add("Exotic");
+		shopConfig.set("shops.categories", categories);
 		
 		saveShopConfig();
 	}
