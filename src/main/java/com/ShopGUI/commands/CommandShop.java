@@ -35,7 +35,11 @@ public class CommandShop implements CommandExecutor {
 				
 				sender.sendMessage("Created shop category named " + args[1] + "!");
 				
-				sender.sendMessage((String) config.getMapList("shop.shops").get(0).get("tester"));
+				//sender.sendMessage((String) config.getMapList("shop.shops").get(0).get("tester"));
+				
+				config.set("shops.food.test", true);
+				
+				plugin.saveShopConfig();
 				
 				return true;
 			}

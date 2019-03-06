@@ -1,0 +1,22 @@
+# Shops.yml
+shops:
+  food:
+    name: '&cFood'
+    rows: 3
+    command: 'food' #Command to be executed upon opening this specific shop.
+    items:
+      1:
+        type: 'item'
+        item:
+          material: 'BREAD'
+          quantity: 2
+          name: '&qBread'
+          lore:
+            - '&wBread is &qgood&w.'
+            - '&wBread is &qlife&q.'
+          enchantments:
+            - LUCK: 3
+            - FIRE_ASPECT: 1
+        buy-price: 10
+        sell-price: 5
+        slot: 1
