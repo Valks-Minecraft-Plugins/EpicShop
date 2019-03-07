@@ -1,22 +1,59 @@
 # Shops.yml
-shops:
-  food:
-    name: '&cFood'
-    rows: 3
-    command: 'food' #Command to be executed upon opening this specific shop.
-    items:
-      1:
-        type: 'item'
-        item:
-          material: 'BREAD'
-          quantity: 2
-          name: '&qBread'
-          lore:
-            - '&wBread is &qgood&w.'
-            - '&wBread is &qlife&q.'
-          enchantments:
-            - LUCK: 3
-            - FIRE_ASPECT: 1
-        buy-price: 10
-        sell-price: 5
-        slot: 1
+catalog:
+  name: '&c&lCategories'
+  rows: 1
+  categories:
+    food:
+      slot: 1
+      category_item:
+        material: APPLE
+        quantity: 1
+        name: '&cFood'
+        lore:
+        - '&tThis is the &qfood&t category!'
+        - '&tFood is &qdelicious&t!'
+        item_flags:
+        - HIDE_ENCHANTS
+        enchants:
+          luck_of_the_sea:
+            level: 3
+      category:
+        name: "&c&lFood"
+        rows: 3
+        command: food
+        items:
+          '1':
+            material: BREAD
+            quantity: 2
+            name: '&qBread'
+            lore:
+            - '&tBread is &qgood&t.'
+            - '&tBread is &qlife&t.'
+            price:
+              xp-levels: 1
+              buy: 10
+              sell: 5
+            slot: 1
+    blocks:
+      slot: 2
+      category_item:
+        material: GRASS_BLOCK
+        name: '&2Grass'
+        lore:
+        - '&tGrass category.'
+      category:
+        name: '&2&lGrass'
+        rows: 2
+        items:
+          '1':
+            material: GRASS_BLOCK
+            price:
+              buy: 2
+              sell: 1
+            slot: 1
+          '2':
+            material: STONE
+            price:
+              buy: 4
+              sell: 2
+            slot: 11

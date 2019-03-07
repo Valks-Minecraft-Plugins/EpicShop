@@ -1,4 +1,4 @@
 # Permissions.yml
 open_shop:
-  node: 'epicshop.open'
+  node: epicshop.open
   default: true

@@ -6,7 +6,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ShopGUI.commands.CommandShop;
-import com.ShopGUI.listeners.ListenerInvClose;
+import com.ShopGUI.listeners.InventoryListener;
 import com.ShopGUI.utils.Utils;
 
 public class ShopGUI extends JavaPlugin {
@@ -34,7 +34,7 @@ public class ShopGUI extends JavaPlugin {
 	
 	private void registerListeners() {
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvents(new ListenerInvClose(), this);
+		pm.registerEvents(new InventoryListener(), this);
 	}
 	
 	private void registerCommands() {
@@ -43,6 +43,7 @@ public class ShopGUI extends JavaPlugin {
 	
 	private void registerConfigs() {
 		saveAllConfigs();
+		reloadAllConfigs();
 	}
 	
 	public void saveAllConfigs() {
@@ -51,6 +52,34 @@ public class ShopGUI extends JavaPlugin {
 		saveMessagesConfig();
 		savePermissionsConfig();
 		saveSignsConfig();
+	}
+	
+	public void reloadAllConfigs() {
+		reloadShopConfig();
+		reloadGlobalConfig();
+		reloadMessagesConfig();
+		reloadPermissionsConfig();
+		reloadSignsConfig();
+	}
+	
+	public void reloadShopConfig() {
+		shopConfig = YamlConfiguration.loadConfiguration(shopConfigFile);
+	}
+	
+	public void reloadGlobalConfig() {
+		globalConfig = YamlConfiguration.loadConfiguration(globalConfigFile);
+	}
+	
+	public void reloadMessagesConfig() {
+		messagesConfig = YamlConfiguration.loadConfiguration(messagesConfigFile);
+	}
+	
+	public void reloadPermissionsConfig() {
+		permissionsConfig = YamlConfiguration.loadConfiguration(permissionsConfigFile);
+	}
+	
+	public void reloadSignsConfig() {
+		signsConfig = YamlConfiguration.loadConfiguration(signsConfigFile);
 	}
 	
 	public void saveShopConfig() {

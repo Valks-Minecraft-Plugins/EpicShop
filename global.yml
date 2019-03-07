@@ -8,8 +8,9 @@ open_shop_item:
   left_click: true
   item:
     material: STICK
-    name: "&qOpen Shop"
+    name: '&qOpen Shop'
 color:
   primary: '&f'
-  secondary: '&7'
-  start-color: '&7'
+  secondary: '&8'
+  tertiary: '&7'
+  start_color: '&7'

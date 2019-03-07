@@ -1,20 +1,21 @@
 # Messages.yml
 messages:
   sell:
-    message: 'Item was sold.'
+    message: Item was sold.
     enabled: true
   buy:
-    message: 'Item was bought.'
+    message: Item was bought.
     enabled: true
   no_permission:
-    message: 'No permission.'
-    enabled: true
-  error:
-    message: 'Error'
+    message: No permission.
     enabled: true
   opening_shop:
-    message: 'Opening shop..'
+    message: Opening shop..
     enabled: true
   editing_shop:
-    message: 'Editing shop..'
+    message: Editing shop..
     enabled: true
+  help:
+    message: "&w[&qEpicShop Help&w]&t\n \n/shop\n/shop help\n/shop edit"
+  error:
+    message: Error
