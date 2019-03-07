@@ -1,0 +1,7 @@
+# Buttons.yml
+buttons:
+  back:
+    item:
+      material: COAL
+      name: "&cGo Back"
+      slot: 9

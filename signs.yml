@@ -1,0 +1,5 @@
+# Signs.yml
+signs:
+  1:
+    name: '&3Food Shop'
+    shop: 'food'

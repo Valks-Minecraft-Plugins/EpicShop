@@ -1,0 +1,15 @@
+# Global.yml
+global_hide_flags: []
+auto-refresh: 5
+open_shop_item:
+  enabled: true
+  recieved_on_join: true
+  right_click: true
+  left_click: true
+  item:
+    material: STICK
+    name: "&qOpen Shop"
+color:
+  primary: '&f'
+  secondary: '&7'
+  start-color: '&7'
