@@ -64,3 +64,56 @@ catalog:
               sell: 2
             slot: 11
 ```
+
+```yml
+# Buttons.yml
+buttons:
+  buy_sell_inventory:
+    name: "&cBuy Sell"
+    rows: 5
+    product:
+      slot: 14
+  remove1:
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&a&lRemove 1"
+    slot: 3
+  remove10:
+    material: BLACK_STAINED_GLASS_PANE
+    quantity: 10
+    name: "&a&lRemove 10"
+    slot: 11
+  set1:
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&a&lSet to 1"
+    slot: 19
+  add1:
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&a&lAdd 1"
+    slot: 7
+  add10:
+    material: BLACK_STAINED_GLASS_PANE
+    quantity: 10
+    name: "&a&lAdd 10"
+    slot: 17
+  set64:
+    material: BLACK_STAINED_GLASS_PANE
+    quantity: 64
+    name: "&a&lSet to 64"
+    slot: 27
+  sellall:
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&a&lSell All"
+    slot: 33
+  confirm:
+    material: PINK_STAINED_GLASS_PANE
+    name: "&d&lConfirm"
+    slot: 41
+  cancel:
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&a&lCancel"
+    slot: 31
+  back:
+    material: COAL
+    name: "&cGo Back"
+    slots_from_bottom: 5
+```
