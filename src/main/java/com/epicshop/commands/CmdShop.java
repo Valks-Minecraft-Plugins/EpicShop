@@ -1,4 +1,4 @@
-package com.ShopGUI.commands;
+package com.epicshop.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -8,42 +8,43 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import com.ShopGUI.ShopGUI;
-import com.ShopGUI.utils.Utils;
+import com.epicshop.EpicShop;
+import com.epicshop.inv.InvCategories;
+import com.epicshop.utils.Utils;
+
 //sender.sendMessage((String) config.getMapList("shop.shops").get(0).get("tester"));
-public class CommandShop implements CommandExecutor {
+public class CmdShop implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (command.getName().equalsIgnoreCase("shop")) {
-			
-			ShopGUI plugin = ShopGUI.plugin;
-			//YamlConfiguration shopConfig = plugin.getShopConfig();
-			YamlConfiguration messagesConfig = plugin.getMessagesConfig();
-			
+
+			// YamlConfiguration shopConfig = plugin.getShopConfig();
+			YamlConfiguration messagesConfig = EpicShop.messages.getConfig();
+
 			boolean messageEnabledOpeningShop = messagesConfig.getBoolean("messages.opening_shop.enabled");
 			boolean messageEnabledEditingShop = messagesConfig.getBoolean("messages.editing_shop.enabled");
-			
+
 			String messageOpeningShop = messagesConfig.getString("messages.opening_shop.message");
 			String messageEditingShop = messagesConfig.getString("messages.editing_shop.message");
-			
+
 			String messageHelp = messagesConfig.getString("messages.help.message");
-			
+
 			Player p = Bukkit.getPlayer(sender.getName());
-			
+
 			/*
 			 * Open the shop.
 			 */
 			if (args.length < 1) {
 				if (messageEnabledOpeningShop)
 					sender.sendMessage(Utils.color(messageOpeningShop));
-				
-				Inventory inv = Utils.getShopCategories(p);
-				
+
+				Inventory inv = new InvCategories(p).getInv();
+
 				if (inv != null)
 					p.openInventory(inv);
-				
+
 				return true;
 			}
-			
+
 			/*
 			 * Help message.
 			 */
@@ -51,54 +52,54 @@ public class CommandShop implements CommandExecutor {
 				sender.sendMessage(Utils.color(messageHelp));
 				return true;
 			}
-			
+
 			/*
 			 * Edit the shop.
 			 */
 			if (args[0].equalsIgnoreCase("edit")) {
 				if (messageEnabledEditingShop)
 					sender.sendMessage(Utils.color(messageEditingShop));
-				
+
 				return true;
 			}
-			
+
 			/*
 			 * Reload plugin configs.
 			 */
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (args.length < 2) {
-					plugin.reloadAllConfigs();
+					EpicShop.reloadAllConfigs();
 					sender.sendMessage(Utils.color("&tReloaded all EpicShop configs."));
 					return true;
 				}
-				
+
 				switch (args[1].toLowerCase()) {
 				case "buttons":
-					plugin.reloadButtonsConfig();
+					EpicShop.buttons.reloadConfig();
 					sender.sendMessage(Utils.color("&tReloaded buttons.yml config."));
 					break;
 				case "global":
-					plugin.reloadGlobalConfig();
+					EpicShop.global.reloadConfig();
 					sender.sendMessage(Utils.color("&tReloaded global.yml config."));
 					break;
 				case "messages":
-					plugin.reloadMessagesConfig();
+					EpicShop.messages.reloadConfig();
 					sender.sendMessage(Utils.color("&tReloaded messages.yml config."));
 					break;
 				case "permissions":
-					plugin.reloadPermissionsConfig();
+					EpicShop.permissions.reloadConfig();
 					sender.sendMessage(Utils.color("&tReloaded permissions.yml config."));
 					break;
 				case "shop":
-					plugin.reloadShopConfig();
+					EpicShop.shops.reloadConfig();
 					sender.sendMessage(Utils.color("&tReloaded shop.yml config."));
 					break;
 				case "signs":
-					plugin.reloadSignsConfig();
+					EpicShop.signs.reloadConfig();
 					sender.sendMessage(Utils.color("&tReloaded signs.yml config."));
 					break;
 				default:
-					plugin.reloadAllConfigs();
+					EpicShop.reloadAllConfigs();
 					sender.sendMessage(Utils.color("&tReloaded all EpicShop configs."));
 					break;
 				}
@@ -107,7 +108,7 @@ public class CommandShop implements CommandExecutor {
 
 			return true;
 		}
-		
+
 		return false;
 	}
 }
