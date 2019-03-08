@@ -38,9 +38,8 @@ public class Utils {
 		try {
 			inv = Bukkit.createInventory(null, rows * 9, Utils.color(name));
 			for (String key : cs.getKeys(false)) {
-				String path = "catalog.categories." + key;
-				int slot = shopConfig.getInt(path + ".slot");
-				setInvItem(p, inv, size, slot, getConfigItem(p, shopConfig, path + ".category_item"));
+				ShopItem item = new ShopItem(p, shopConfig, "catalog.categories." + key + ".category_item");
+				setInvItem(p, inv, size, item);
 			}
 		} catch (NullPointerException e) {
 			sendError(p, e, "Looks like you made a type error somewhere in the shops.yml!");
@@ -123,26 +122,30 @@ public class Utils {
 		Inventory inv = Bukkit.createInventory(null, rows * 9, color(name));
 		
 		for (String element : items.getKeys(false)) {
-			String root = path + ".items." + element;
-			int slot = shopConfig.getInt(root + ".slot");
-			ItemStack item = getConfigItem(p, shopConfig, root);
-			
-			setInvItem(p, inv, size, slot, item);
+			ShopItem item = new ShopItem(p, shopConfig, path + ".items." + element);
+			setInvItem(p, inv, size, item);
 		}
+		
+		YamlConfiguration buttonsConfig = ShopGUI.plugin.getButtonsConfig();
+		ShopItem itemBack = new ShopItem(p, buttonsConfig, "buttons.back");
+		int slotsFromBottom = buttonsConfig.getInt("buttons.back.slots_from_bottom");
+		inv.setItem(inv.getSize() - slotsFromBottom, itemBack.getItemStack());
 		
 		return inv;
 	}
 	
-	public static void setInvItem(Player p, Inventory inv, int size, int slot, ItemStack item) {
+	public static void setInvItem(Player p, Inventory inv, int size, ShopItem item) {
+		int slot = item.getSlot();
+		
 		try {
 			slot--;
 			if (slot == -1)
 				throw new NumberFormatException();
-			inv.setItem(slot, item);
+			inv.setItem(slot, item.getItemStack());
 		} catch (NumberFormatException e) {
 			sendError(p, e, "Slot and row values must be valid numbers!");
 		} catch (ArrayIndexOutOfBoundsException e) {
-			sendError(p, e, "Inventory only has a size of " + size + " but " + item.getType().name().toLowerCase() 
+			sendError(p, e, "Inventory only has a size of " + size + " but " + item.getItemStack().getType().name().toLowerCase() 
 					+ " item is trying to be set in slot " + slot + "!");
 		}
 	}

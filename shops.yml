@@ -4,7 +4,6 @@ catalog:
   rows: 1
   categories:
     food:
-      slot: 1
       category_item:
         material: APPLE
         quantity: 1
@@ -17,12 +16,14 @@ catalog:
         enchants:
           luck_of_the_sea:
             level: 3
+        slot: 1
       category:
         name: "&c&lFood"
         rows: 3
         command: food
         items:
           '1':
+            keep-open: false
             material: BREAD
             quantity: 2
             name: '&qBread'
@@ -35,12 +36,12 @@ catalog:
               sell: 5
             slot: 1
     blocks:
-      slot: 2
       category_item:
         material: GRASS_BLOCK
         name: '&2Grass'
         lore:
         - '&tGrass category.'
+        slot: 2
       category:
         name: '&2&lGrass'
         rows: 2

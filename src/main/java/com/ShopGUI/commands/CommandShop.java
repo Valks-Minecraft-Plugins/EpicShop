@@ -61,6 +61,49 @@ public class CommandShop implements CommandExecutor {
 				
 				return true;
 			}
+			
+			/*
+			 * Reload plugin configs.
+			 */
+			if (args[0].equalsIgnoreCase("reload")) {
+				if (args.length < 2) {
+					plugin.reloadAllConfigs();
+					sender.sendMessage(Utils.color("&tReloaded all EpicShop configs."));
+					return true;
+				}
+				
+				switch (args[1].toLowerCase()) {
+				case "buttons":
+					plugin.reloadButtonsConfig();
+					sender.sendMessage(Utils.color("&tReloaded buttons.yml config."));
+					break;
+				case "global":
+					plugin.reloadGlobalConfig();
+					sender.sendMessage(Utils.color("&tReloaded global.yml config."));
+					break;
+				case "messages":
+					plugin.reloadMessagesConfig();
+					sender.sendMessage(Utils.color("&tReloaded messages.yml config."));
+					break;
+				case "permissions":
+					plugin.reloadPermissionsConfig();
+					sender.sendMessage(Utils.color("&tReloaded permissions.yml config."));
+					break;
+				case "shop":
+					plugin.reloadShopConfig();
+					sender.sendMessage(Utils.color("&tReloaded shop.yml config."));
+					break;
+				case "signs":
+					plugin.reloadSignsConfig();
+					sender.sendMessage(Utils.color("&tReloaded signs.yml config."));
+					break;
+				default:
+					plugin.reloadAllConfigs();
+					sender.sendMessage(Utils.color("&tReloaded all EpicShop configs."));
+					break;
+				}
+				return true;
+			}
 
 			return true;
 		}
