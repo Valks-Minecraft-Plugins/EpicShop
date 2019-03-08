@@ -117,3 +117,61 @@ buttons:
     name: "&cGo Back"
     slots_from_bottom: 5
 ```
+
+```yml
+# Global.yml
+global_hide_flags: []
+auto-refresh: 5
+open_shop_item:
+  enabled: true
+  recieved_on_join: true
+  right_click: true
+  left_click: true
+  item:
+    material: STICK
+    name: '&qOpen Shop'
+color:
+  primary: '&f'
+  secondary: '&8'
+  tertiary: '&7'
+  start_color: '&7'
+```
+
+```yml
+# Messages.yml
+messages:
+  sell:
+    message: Item was sold.
+    enabled: true
+  buy:
+    message: Item was bought.
+    enabled: true
+  no_permission:
+    message: No permission.
+    enabled: true
+  opening_shop:
+    message: Opening shop..
+    enabled: true
+  editing_shop:
+    message: Editing shop..
+    enabled: true
+  help:
+    message: "&w[&qEpicShop Help&w]&t\n \n/shop\n/shop help\n/shop edit"
+  error:
+    message: Error
+```
+
+```yml
+# Permissions.yml
+open_shop:
+  node: epicshop.open
+  default: true
+```
+
+```yml
+# Signs.yml
+signs:
+  '1':
+    name: '&3Food Shop'
+    shop: food
+```
