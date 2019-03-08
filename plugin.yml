@@ -3,6 +3,7 @@ main: com.epicshop.EpicShop
 author: valkyrienyanko
 version: 1.0
 api-version: 1.13
+soft-depend: [Vault]
 commands:
    shop:
      description: Main shop command.

@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import com.epicshop.EpicShop;
+import com.epicshop.configs.ConfigManager;
 import com.epicshop.utils.ShopItem;
 import com.epicshop.utils.Utils;
 
@@ -20,7 +21,11 @@ public class InvCategory {
 	}
 
 	public Inventory getInv() {
-		YamlConfiguration shopConfig = EpicShop.shops.getConfig();
+		ConfigManager shopsConfigManager = EpicShop.shops;
+		YamlConfiguration shopConfig = shopsConfigManager.getConfig();
+		
+		ConfigManager buttonsConfigManager = EpicShop.buttons;
+		YamlConfiguration buttonsConfig = buttonsConfigManager.getConfig();
 
 		String name = shopConfig.getString(path + ".name");
 		int rows = shopConfig.getInt(path + ".rows");
@@ -32,12 +37,12 @@ public class InvCategory {
 		Inventory inv = Bukkit.createInventory(null, rows * 9, Utils.color(name));
 
 		for (String element : items.getKeys(false)) {
-			ShopItem item = new ShopItem(p, shopConfig, path + ".items." + element);
+			ShopItem item = new ShopItem(p, shopsConfigManager, path + ".items." + element, true);
 			Utils.setInvItem(p, inv, size, item);
 		}
 
-		YamlConfiguration buttonsConfig = EpicShop.buttons.getConfig();
-		ShopItem itemBack = new ShopItem(p, buttonsConfig, "buttons.back");
+		
+		ShopItem itemBack = new ShopItem(p, buttonsConfigManager, "buttons.back", true);
 		int slotsFromBottom = buttonsConfig.getInt("buttons.back.slots_from_bottom");
 		inv.setItem(inv.getSize() - slotsFromBottom, itemBack.getItemStack());
 

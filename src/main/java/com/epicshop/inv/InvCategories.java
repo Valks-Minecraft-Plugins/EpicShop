@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import com.epicshop.EpicShop;
+import com.epicshop.configs.ConfigManager;
 import com.epicshop.utils.ShopItem;
 import com.epicshop.utils.Utils;
 
@@ -18,7 +19,8 @@ public class InvCategories {
 	}
 
 	public Inventory getInv() {
-		YamlConfiguration shopConfig = EpicShop.shops.getConfig();
+		ConfigManager shopConfigManager = EpicShop.shops;
+		YamlConfiguration shopConfig = shopConfigManager.getConfig();
 
 		int rows = shopConfig.getInt("catalog.rows");
 		String name = shopConfig.getString("catalog.name");
@@ -32,7 +34,7 @@ public class InvCategories {
 		try {
 			inv = Bukkit.createInventory(null, rows * 9, Utils.color(name));
 			for (String key : cs.getKeys(false)) {
-				ShopItem item = new ShopItem(p, shopConfig, "catalog.categories." + key + ".category_item");
+				ShopItem item = new ShopItem(p, shopConfigManager, "catalog.categories." + key + ".category_item", true);
 				Utils.setInvItem(p, inv, size, item);
 			}
 		} catch (NullPointerException e) {

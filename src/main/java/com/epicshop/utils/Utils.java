@@ -1,13 +1,27 @@
 package com.epicshop.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
 import com.epicshop.EpicShop;
 
 public class Utils {
+	public static void updateProductLore(ItemStack info, ShopItem item, ItemStack product) {
+		ItemMeta infoMeta = info.getItemMeta();
+		List<String> infoLore = new ArrayList<String>();
+		infoLore.add(Utils.color("&tPrice: &q" + item.getBuyPrice() * product.getAmount()));
+		infoMeta.setLore(infoLore);
+		info.setItemMeta(infoMeta);	
+	}
+	
 	public static void setInvItem(Player p, Inventory inv, int size, ShopItem item) {
 		int slot = item.getSlot();
 

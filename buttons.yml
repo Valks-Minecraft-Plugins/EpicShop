@@ -7,44 +7,48 @@ buttons:
       slot: 14
   remove1:
     material: BLACK_STAINED_GLASS_PANE
-    name: "&a&lRemove 1"
+    name: "&tRemove &q1"
     slot: 3
   remove10:
     material: BLACK_STAINED_GLASS_PANE
     quantity: 10
-    name: "&a&lRemove 10"
+    name: "&tRemove &q10"
     slot: 11
   set1:
     material: BLACK_STAINED_GLASS_PANE
-    name: "&a&lSet to 1"
+    name: "&tSet to &q1"
     slot: 19
   add1:
     material: BLACK_STAINED_GLASS_PANE
-    name: "&a&lAdd 1"
+    name: "&tAdd &q1"
     slot: 7
   add10:
     material: BLACK_STAINED_GLASS_PANE
     quantity: 10
-    name: "&a&lAdd 10"
+    name: "&tAdd &q10"
     slot: 17
   set64:
     material: BLACK_STAINED_GLASS_PANE
     quantity: 64
-    name: "&a&lSet to 64"
+    name: "&tSet to &q64"
     slot: 27
   sellall:
     material: BLACK_STAINED_GLASS_PANE
-    name: "&a&lSell All"
+    name: "&tSell All"
     slot: 33
   confirm:
     material: PINK_STAINED_GLASS_PANE
-    name: "&d&lConfirm"
+    name: "&dConfirm"
     slot: 41
   cancel:
     material: BLACK_STAINED_GLASS_PANE
-    name: "&a&lCancel"
+    name: "&tCancel"
     slot: 31
   back:
-    material: COAL
-    name: "&cGo Back"
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&tGo Back"
     slots_from_bottom: 5
+  buy_sell_info:
+    material: MAGENTA_STAINED_GLASS_PANE
+    name: "&tInfo"
+    slot: 23

@@ -1,14 +1,17 @@
 package com.epicshop.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import com.epicshop.EpicShop;
+import com.epicshop.configs.ConfigItem;
 import com.epicshop.inv.InvCategories;
 import com.epicshop.utils.Utils;
 
@@ -36,6 +39,8 @@ public class CmdShop implements CommandExecutor {
 			if (args.length < 1) {
 				if (messageEnabledOpeningShop)
 					sender.sendMessage(Utils.color(messageOpeningShop));
+				
+				EpicShop.shopEditMode.put(p.getUniqueId(), false);
 
 				Inventory inv = new InvCategories(p).getInv();
 
@@ -59,6 +64,13 @@ public class CmdShop implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("edit")) {
 				if (messageEnabledEditingShop)
 					sender.sendMessage(Utils.color(messageEditingShop));
+				
+				EpicShop.shopEditMode.put(p.getUniqueId(), true);
+				
+				Inventory inv = new InvCategories(p).getInv();
+
+				if (inv != null)
+					p.openInventory(inv);
 
 				return true;
 			}

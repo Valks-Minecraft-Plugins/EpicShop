@@ -1,7 +1,9 @@
 package com.epicshop.configs;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -14,28 +16,62 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.epicshop.utils.ShopItem;
 import com.epicshop.utils.Utils;
 
 public class ConfigItem {
-	private Player p;
-	private YamlConfiguration config;
-	private String path;
+	private ConfigManager config;
 
-	public ConfigItem(Player p, YamlConfiguration config, String path) {
-		this.p = p;
+	public ConfigItem(ConfigManager config) {
 		this.config = config;
-		this.path = path;
+	}
+	
+	public void removeConfigItem(String path) {
+		config.getConfig().set(path, null);
+		config.saveConfig();
+	}
+	
+	public void setConfigItem(ShopItem shopItem, int slot, String path) {
+		ItemStack item = shopItem.getItemStack();
+		ItemMeta im = item.getItemMeta();
+		
+		String itemMaterialName = item.getType().name();
+		String itemDisplayName = im.getDisplayName();
+		
+		List<String> itemLore = im.getLore();
+		List<String> itemFlags = new ArrayList<String>();
+		List<String> itemEnchants = new ArrayList<String>();
+		
+		int quantity = item.getAmount();
+		
+		for (ItemFlag flag : im.getItemFlags())
+			itemFlags.add(flag.name());
+		
+		Map<Enchantment, Integer> enchantments = im.getEnchants();
+		Iterator<Enchantment> iterator = enchantments.keySet().iterator();
+		while(iterator.hasNext()) {
+			Enchantment enchant = EnchantmentWrapper.getByKey(iterator.next().getKey());
+			itemEnchants.add(enchant.getKey().getKey());
+		}
+		
+		YamlConfiguration yamlConfig = config.getConfig();
+		
+		yamlConfig.set(path + ".material", itemMaterialName);
+		yamlConfig.set(path + ".slot", slot);
+		
+		config.saveConfig();
 	}
 
-	public ItemStack getItemStack() {
-		String materialName = config.getString(path + ".material");
-		String itemName = config.getString(path + ".name");
-		List<String> configLore = config.getStringList(path + ".lore");
+	public ItemStack getItemStack(Player p, String path) {
+		YamlConfiguration yamlConfig = config.getConfig();
+		String materialName = yamlConfig.getString(path + ".material");
+		String itemName = yamlConfig.getString(path + ".name");
+		List<String> configLore = yamlConfig.getStringList(path + ".lore");
 		List<String> formattedLore = new ArrayList<String>();
-		List<String> itemFlags = config.getStringList(path + ".item_flags");
-		int quantity = config.getInt(path + ".quantity");
+		List<String> itemFlags = yamlConfig.getStringList(path + ".item_flags");
+		int quantity = yamlConfig.getInt(path + ".quantity");
 
-		if (!config.isSet(path + ".quantity"))
+		if (!yamlConfig.isSet(path + ".quantity"))
 			quantity = 1;
 
 		Material material = null;
@@ -73,10 +109,10 @@ public class ConfigItem {
 				}
 			}
 
-			ConfigurationSection sectionEnchants = config.getConfigurationSection(path + ".enchants");
+			ConfigurationSection sectionEnchants = yamlConfig.getConfigurationSection(path + ".enchants");
 			if (sectionEnchants != null) {
 				for (String element : sectionEnchants.getKeys(false)) {
-					int level = config.getInt(path + ".enchants." + element + ".level");
+					int level = yamlConfig.getInt(path + ".enchants." + element + ".level");
 					Enchantment enchant = EnchantmentWrapper.getByKey(NamespacedKey.minecraft(element.toLowerCase()));
 
 					im.addEnchant(enchant, level, true);

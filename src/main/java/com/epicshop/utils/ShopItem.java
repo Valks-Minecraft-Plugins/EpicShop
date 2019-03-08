@@ -1,14 +1,11 @@
 package com.epicshop.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import com.epicshop.configs.ConfigItem;
+import com.epicshop.configs.ConfigManager;
 
 public class ShopItem {
 	private final String PATH_XP_LEVELS = ".price.xp-levels";
@@ -17,18 +14,54 @@ public class ShopItem {
 	private final String PATH_SLOT = ".slot";
 
 	private Player p;
-	private YamlConfiguration config;
+	private ConfigManager config;
+	private YamlConfiguration yamlConfig;
 	private String path;
+	
+	private int levels;
+	private int price;
+	private int sell;
+	private int slot;
+	
+	private boolean getFromConfig;
 
-	public ShopItem(Player p, YamlConfiguration config, String path) {
+	public ShopItem(Player p, ConfigManager config, String path, boolean getFromConfig) {
 		this.p = p;
 		this.config = config;
 		this.path = path;
+		this.yamlConfig = config.getConfig();
+		this.getFromConfig = getFromConfig;
+		
+		if (yamlConfig.isSet(path + PATH_XP_LEVELS)) {
+			levels = yamlConfig.getInt(path + PATH_XP_LEVELS);
+		}
+		
+		if (yamlConfig.isSet(path + PATH_PRICE_BUY)) {
+			price = yamlConfig.getInt(path + PATH_PRICE_BUY);
+		}
+		
+		if (yamlConfig.isSet(path + PATH_PRICE_SELL)) {
+			sell = yamlConfig.getInt(path + PATH_PRICE_SELL);
+		}
+		
+		if (yamlConfig.isSet(path + PATH_SLOT)) {
+			slot = yamlConfig.getInt(path + PATH_SLOT);
+		}
+	}
+	
+	public String getPath() {
+		return path;
 	}
 
 	public ItemStack getItemStack() {
-		ItemStack item = new ConfigItem(p, config, path).getItemStack();
-		if (xpLevelsSet() || buyPriceSet() || sellPriceSet()) {
+		ItemStack item;
+		if (getFromConfig) {
+			item = new ConfigItem(config).getItemStack(p, path);
+		} else {
+			item = new ItemStack(Material.BAKED_POTATO);
+		}
+		
+		/*if (xpLevelsSet() || buyPriceSet() || sellPriceSet()) {
 			ItemMeta im = item.getItemMeta();
 			List<String> lore = im.getLore();
 			if (lore == null)
@@ -42,39 +75,23 @@ public class ShopItem {
 				lore.add(Utils.color("Lvls: &f" + getXpLevelsPrice()));
 			im.setLore(lore);
 			item.setItemMeta(im);
-		}
+		}*/
 		return item;
 	}
 
-	public boolean xpLevelsSet() {
-		return config.isSet(path + PATH_XP_LEVELS);
-	}
-
-	public boolean buyPriceSet() {
-		return config.isSet(path + PATH_PRICE_BUY);
-	}
-
-	public boolean sellPriceSet() {
-		return config.isSet(path + PATH_PRICE_SELL);
-	}
-
-	public boolean slotSet() {
-		return config.isSet(path + PATH_SLOT);
-	}
-
 	public int getXpLevelsPrice() {
-		return config.getInt(path + PATH_XP_LEVELS);
+		return levels;
 	}
 
 	public int getBuyPrice() {
-		return config.getInt(path + PATH_PRICE_BUY);
+		return price;
 	}
 
 	public int getSellPrice() {
-		return config.getInt(path + PATH_PRICE_SELL);
+		return sell;
 	}
 
 	public int getSlot() {
-		return config.getInt(path + PATH_SLOT);
+		return slot;
 	}
 }
