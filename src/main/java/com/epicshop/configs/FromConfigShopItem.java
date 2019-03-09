@@ -1,19 +1,14 @@
-package com.epicshop.utils;
+package com.epicshop.configs;
 
-import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import com.epicshop.configs.ConfigItem;
-import com.epicshop.configs.ConfigManager;
 
-public class ShopItem {
+public class FromConfigShopItem {
 	private final String PATH_XP_LEVELS = ".price.xp-levels";
 	private final String PATH_PRICE_BUY = ".price.buy";
 	private final String PATH_PRICE_SELL = ".price.sell";
 	private final String PATH_SLOT = ".slot";
 
-	private Player p;
 	private ConfigManager config;
 	private YamlConfiguration yamlConfig;
 	private String path;
@@ -22,15 +17,11 @@ public class ShopItem {
 	private int price;
 	private int sell;
 	private int slot;
-	
-	private boolean getFromConfig;
 
-	public ShopItem(Player p, ConfigManager config, String path, boolean getFromConfig) {
-		this.p = p;
+	public FromConfigShopItem(ConfigManager config, String path) {
 		this.config = config;
 		this.path = path;
 		this.yamlConfig = config.getConfig();
-		this.getFromConfig = getFromConfig;
 		
 		if (yamlConfig.isSet(path + PATH_XP_LEVELS)) {
 			levels = yamlConfig.getInt(path + PATH_XP_LEVELS);
@@ -54,12 +45,7 @@ public class ShopItem {
 	}
 
 	public ItemStack getItemStack() {
-		ItemStack item;
-		if (getFromConfig) {
-			item = new ConfigItem(config).getItemStack(p, path);
-		} else {
-			item = new ItemStack(Material.BAKED_POTATO);
-		}
+		ItemStack item = new ConfigItem(config).getItemStack(path);
 		
 		/*if (xpLevelsSet() || buyPriceSet() || sellPriceSet()) {
 			ItemMeta im = item.getItemMeta();

@@ -11,12 +11,10 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentWrapper;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.epicshop.utils.ShopItem;
 import com.epicshop.utils.Utils;
 
 public class ConfigItem {
@@ -31,7 +29,7 @@ public class ConfigItem {
 		config.saveConfig();
 	}
 	
-	public void setConfigItem(ShopItem shopItem, int slot, String path) {
+	public void setConfigItem(FromConfigShopItem shopItem, int slot, String path) {
 		ItemStack item = shopItem.getItemStack();
 		ItemMeta im = item.getItemMeta();
 		
@@ -62,7 +60,7 @@ public class ConfigItem {
 		config.saveConfig();
 	}
 
-	public ItemStack getItemStack(Player p, String path) {
+	public ItemStack getItemStack(String path) {
 		YamlConfiguration yamlConfig = config.getConfig();
 		String materialName = yamlConfig.getString(path + ".material");
 		String itemName = yamlConfig.getString(path + ".name");
@@ -79,7 +77,7 @@ public class ConfigItem {
 		try {
 			material = Material.valueOf(materialName);
 		} catch (IllegalArgumentException e) {
-			Utils.sendError(p, e, "You made a type error! " + e.getMessage());
+			Utils.sendError(e, "You made a type error! " + e.getMessage());
 			material = Material.AIR;
 		}
 

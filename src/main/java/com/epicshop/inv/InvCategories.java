@@ -3,19 +3,16 @@ package com.epicshop.inv;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import com.epicshop.EpicShop;
 import com.epicshop.configs.ConfigManager;
-import com.epicshop.utils.ShopItem;
+import com.epicshop.configs.FromConfigShopItem;
 import com.epicshop.utils.Utils;
 
 public class InvCategories {
-	private Player p;
-
-	public InvCategories(Player p) {
-		this.p = p;
+	public InvCategories() {
+		
 	}
 
 	public Inventory getInv() {
@@ -34,11 +31,11 @@ public class InvCategories {
 		try {
 			inv = Bukkit.createInventory(null, rows * 9, Utils.color(name));
 			for (String key : cs.getKeys(false)) {
-				ShopItem item = new ShopItem(p, shopConfigManager, "catalog.categories." + key + ".category_item", true);
-				Utils.setInvItem(p, inv, size, item);
+				FromConfigShopItem item = new FromConfigShopItem(shopConfigManager, "catalog.categories." + key + ".category_item");
+				Utils.setInvItem(inv, size, item);
 			}
 		} catch (NullPointerException e) {
-			Utils.sendError(p, e, "Looks like you made a type error somewhere in the shops.yml!");
+			Utils.sendError(e, "Looks like you made a type error somewhere in the shops.yml!");
 		}
 
 		return inv;

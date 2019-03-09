@@ -11,9 +11,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.epicshop.commands.CmdShop;
 import com.epicshop.configs.ConfigManager;
+import com.epicshop.configs.FromConfigShopItem;
+import com.epicshop.inv.InvBuilder;
 import com.epicshop.listeners.InvListener;
 import com.epicshop.tabcomplete.TabShop;
-import com.epicshop.utils.ShopItem;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -24,7 +25,9 @@ public class EpicShop extends JavaPlugin {
 
 	public static Map<UUID, String> buySellInvItemPath = new HashMap<UUID, String>();
 	public static Map<UUID, Boolean> shopEditMode = new HashMap<UUID, Boolean>();
-	public static Map<UUID, ShopItem> shopMovingItem = new HashMap<UUID, ShopItem>();
+	public static Map<UUID, FromConfigShopItem> shopMovingItem = new HashMap<UUID, FromConfigShopItem>();
+	public static Map<UUID, Integer> materialPage = new HashMap<UUID, Integer>();
+	public static Map<UUID, InvBuilder> invBuilders = new HashMap<UUID, InvBuilder>();
 
 	public static ConfigManager shops, global, messages, permissions, signs, buttons;
 

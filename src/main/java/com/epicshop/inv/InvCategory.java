@@ -3,20 +3,17 @@ package com.epicshop.inv;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import com.epicshop.EpicShop;
 import com.epicshop.configs.ConfigManager;
-import com.epicshop.utils.ShopItem;
+import com.epicshop.configs.FromConfigShopItem;
 import com.epicshop.utils.Utils;
 
 public class InvCategory {
-	private Player p;
 	private String path;
 
-	public InvCategory(Player p, String path) {
-		this.p = p;
+	public InvCategory(String path) {
 		this.path = path;
 	}
 
@@ -37,12 +34,12 @@ public class InvCategory {
 		Inventory inv = Bukkit.createInventory(null, rows * 9, Utils.color(name));
 
 		for (String element : items.getKeys(false)) {
-			ShopItem item = new ShopItem(p, shopsConfigManager, path + ".items." + element, true);
-			Utils.setInvItem(p, inv, size, item);
+			FromConfigShopItem item = new FromConfigShopItem(shopsConfigManager, path + ".items." + element);
+			Utils.setInvItem(inv, size, item);
 		}
 
 		
-		ShopItem itemBack = new ShopItem(p, buttonsConfigManager, "buttons.back", true);
+		FromConfigShopItem itemBack = new FromConfigShopItem(buttonsConfigManager, "buttons.back");
 		int slotsFromBottom = buttonsConfig.getInt("buttons.back.slots_from_bottom");
 		inv.setItem(inv.getSize() - slotsFromBottom, itemBack.getItemStack());
 

@@ -2,26 +2,23 @@ package com.epicshop.inv;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.epicshop.EpicShop;
 import com.epicshop.configs.ConfigManager;
-import com.epicshop.utils.ShopItem;
+import com.epicshop.configs.FromConfigShopItem;
 import com.epicshop.utils.Utils;
 
 public class InvBuySell {
 	private ConfigManager buttonsConfigManager;
 	private YamlConfiguration buttonsConfig;
-	private ShopItem item;
-	private Player p;
+	private FromConfigShopItem item;
 
-	public InvBuySell(Player p, ShopItem item) {
+	public InvBuySell(FromConfigShopItem item) {
 		this.buttonsConfigManager = EpicShop.buttons;
 		this.buttonsConfig = EpicShop.buttons.getConfig();
 		this.item = item;
-		this.p = p;
 	}
 
 	public Inventory getInv() {
@@ -53,43 +50,43 @@ public class InvBuySell {
 		return item.getItemStack();
 	}
 
-	public ShopItem getItemSellAll() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.sellall", true);
+	public FromConfigShopItem getItemSellAll() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.sellall");
 	}
 
-	public ShopItem getItemConfirm() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.confirm", true);
+	public FromConfigShopItem getItemConfirm() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.confirm");
 	}
 
-	public ShopItem getItemCancel() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.cancel", true);
+	public FromConfigShopItem getItemCancel() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.cancel");
 	}
 
-	public ShopItem getItemRemove1() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.remove1", true);
+	public FromConfigShopItem getItemRemove1() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.remove1");
 	}
 
-	public ShopItem getItemRemove10() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.remove10", true);
+	public FromConfigShopItem getItemRemove10() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.remove10");
 	}
 
-	public ShopItem getItemSet1() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.set1", true);
+	public FromConfigShopItem getItemSet1() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.set1");
 	}
 
-	public ShopItem getItemAdd1() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.add1", true);
+	public FromConfigShopItem getItemAdd1() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.add1");
 	}
 
-	public ShopItem getItemAdd10() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.add10", true);
+	public FromConfigShopItem getItemAdd10() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.add10");
 	}
 
-	public ShopItem getItemSet64() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.set64", true);
+	public FromConfigShopItem getItemSet64() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.set64");
 	}
 	
-	public ShopItem getItemInfo() {
-		return new ShopItem(p, buttonsConfigManager, "buttons.buy_sell_info", true);
+	public FromConfigShopItem getItemInfo() {
+		return new FromConfigShopItem(buttonsConfigManager, "buttons.buy_sell_info");
 	}
 }
